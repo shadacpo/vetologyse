@@ -1,0 +1,36 @@
+'use client';
+
+import { createContext, useContext, useState, ReactNode } from 'react';
+import { translations, Locale } from '@/lib/i18n';
+
+type I18nContextType = {
+  locale: Locale;
+  t: (key: keyof typeof translations['en']) => string;
+  switchLocale: (locale: Locale) => void;
+};
+
+const I18nContext = createContext<I18nContextType | null>(null);
+
+export function Providers({ children }: { children: ReactNode }) {
+  const [locale, setLocale] = useState<Locale>('en');
+
+  const t = (key: keyof typeof translations['en']) => translations[locale][key];
+
+  const switchLocale = (newLocale: Locale) => {
+    setLocale(newLocale);
+    document.documentElement.setAttribute('dir', newLocale === 'ar' ? 'rtl' : 'ltr');
+    document.documentElement.setAttribute('lang', newLocale);
+  };
+
+  return (
+    <I18nContext.Provider value={{ locale, t, switchLocale }}>
+      {children}
+    </I18nContext.Provider>
+  );
+}
+
+export const useI18n = () => {
+  const context = useContext(I18nContext);
+  if (!context) throw new Error('useI18n must be used within Providers');
+  return context;
+};

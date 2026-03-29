@@ -1,0 +1,11 @@
+import { NextResponse } from 'next/server';
+import { main } from '@/prisma/seed';
+
+export async function GET() {
+  try {
+    await main();
+    return NextResponse.json({ message: 'Database seeded successfully' });
+  } catch (e) {
+    return NextResponse.json({ error: 'Seed failed' }, { status: 500 });
+  }
+}

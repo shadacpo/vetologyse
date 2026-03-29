@@ -1,0 +1,83 @@
+import { prisma } from '@/lib/prisma';
+import { notFound } from 'next/navigation';
+import { Star, Phone, MapPin } from 'lucide-react';
+
+export default async function DoctorProfile({ params }: { params: { id: string } }) {
+  const doctor = await prisma.doctor.findUnique({
+    where: { id: params.id },
+    include: { reviews: { include: { user: true } } },
+  });
+
+  if (!doctor) notFound();
+
+  return (
+    <div className="max-w-6xl mx-auto px-6 py-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div className="lg:col-span-4">
+          <img
+            src={doctor.photo || 'https://picsum.photos/id/1015/600/600'}
+            alt={doctor.name}
+            className="w-full rounded-3xl shadow-xl"
+          />
+          <div className="mt-8 flex items-center justify-center gap-8 text-sm">
+            <div className="flex items-center gap-2">
+              <Phone size={20} className="text-primary" />
+              <span>{doctor.phone}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MapPin size={20} className="text-primary" />
+              <span>{doctor.location}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="lg:col-span-8">
+          <h1 className="text-5xl font-bold">{doctor.name}</h1>
+          <p className="text-accent text-2xl mt-2">{doctor.specialization}</p>
+          
+          <div className="flex gap-6 mt-8">
+            <div className="flex items-center gap-3">
+              <div className="text-4xl font-semibold">{doctor.averageRating.toFixed(1)}</div>
+              <div>
+                <div className="flex text-yellow-400">★★★★★</div>
+                <div className="text-sm text-gray-500">{doctor.reviewCount} reviews</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="prose mt-12">
+            <h2>Biography</h2>
+            <p>{doctor.bio}</p>
+            <h2>Experience</h2>
+            <p>{doctor.experience} years</p>
+            <h2>Certifications</h2>
+            <ul className="list-disc pl-6">
+              {doctor.certifications.map((cert, i) => (
+                <li key={i}>{cert}</li>
+              ))}
+            </ul>
+          </div>
+
+          <button className="mt-12 w-full bg-primary text-white py-6 rounded-3xl text-xl font-semibold hover:bg-accent transition">
+            Book Appointment with Dr. {doctor.name.split(' ')[1]}
+          </button>
+        </div>
+      </div>
+
+      {/* Reviews section */}
+      <div className="mt-24">
+        <h2 className="text-3xl font-semibold mb-8">Patient Reviews</h2>
+        {doctor.reviews.map((review) => (
+          <div key={review.id} className="bg-white p-8 rounded-3xl mb-6">
+            <div className="flex gap-2 mb-3">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} className={i < review.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'} size={18} />
+              ))}
+            </div>
+            <p className="text-gray-600">{review.comment}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

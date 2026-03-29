@@ -1,0 +1,136 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  password      String
+  name          String
+  role          Role     @default(CUSTOMER)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  pets          Pet[]
+  reviews       Review[]
+  appointments  Appointment[]
+  messages      Message[] @relation("UserMessages")
+
+  @@map("users")
+}
+
+model Doctor {
+  id              String    @id @default(cuid())
+  name            String
+  specialization  String
+  bio             String?
+  experience      Int       @default(0)
+  photo           String?
+  location        String
+  phone           String?
+  certifications  String[]
+  averageRating   Float     @default(0)
+  reviewCount     Int       @default(0)
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  reviews         Review[]
+  appointments    Appointment[]
+
+  @@map("doctors")
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+
+  userId    String
+  doctorId  String
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  doctor    Doctor   @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  @@map("reviews")
+}
+
+model Appointment {
+  id        String             @id @default(cuid())
+  dateTime  DateTime
+  notes     String?
+  status    AppointmentStatus  @default(PENDING)
+  createdAt DateTime           @default(now())
+
+  userId    String
+  doctorId  String
+  petId     String?
+
+  user      User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  doctor    Doctor             @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  pet       Pet?               @relation(fields: [petId], references: [id])
+
+  @@map("appointments")
+}
+
+model Pet {
+  id        String   @id @default(cuid())
+  name      String
+  species   String
+  breed     String?
+  age       Int?
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  appointments Appointment[]
+
+  @@map("pets")
+}
+
+model ClinicInfo {
+  id             String @id @default(cuid())
+  phones         String[]
+  locations      Json
+  googleMapsUrl  String?
+  workingHours   Json
+
+  @@map("clinic_info")
+}
+
+model SiteSettings {
+  id      String  @id @default(cuid())
+  logoUrl String?
+
+  @@map("site_settings")
+}
+
+model Message {
+  id          String   @id @default(cuid())
+  content     String
+  isFromClinic Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  userId      String
+  user        User     @relation("UserMessages", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("messages")
+}
+
+enum Role {
+  ADMIN
+  CUSTOMER
+}
+
+enum AppointmentStatus {
+  PENDING
+  APPROVED
+  CANCELLED
+  COMPLETED
+}

@@ -1,0 +1,24 @@
+export default function Footer() {
+  return (
+    <footer className="bg-primary text-white py-12">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <h3 className="text-xl font-semibold mb-4">Vetology</h3>
+          <p className="text-sm opacity-80">Professional veterinary care in Cairo</p>
+        </div>
+        <div>
+          <h4 className="font-medium mb-3">Contact</h4>
+          <p className="text-sm opacity-80">+20 10 123 4567</p>
+          <p className="text-sm opacity-80">info@vetology.eg</p>
+        </div>
+        <div>
+          <h4 className="font-medium mb-3">Locations</h4>
+          <p className="text-sm opacity-80">Maadi • New Cairo • Heliopolis</p>
+        </div>
+        <div className="text-xs opacity-60">
+          © 2026 Vetology. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  );
+}

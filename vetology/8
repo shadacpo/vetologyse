@@ -1,0 +1,54 @@
+import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
+
+const prisma = new PrismaClient();
+
+async function main() {
+  const adminExists = await prisma.user.findUnique({ where: { email: 'vetology.se@gmail.com' } });
+  if (!adminExists) {
+    const hashedPassword = await bcrypt.hash('vetologyse2089', 12);
+    await prisma.user.create({
+      data: {
+        email: 'vetology.se@gmail.com',
+        password: hashedPassword,
+        name: 'Vetology Admin',
+        role: 'ADMIN',
+      },
+    });
+    console.log('✅ Admin seeded');
+  }
+
+  // Sample clinic info
+  const clinicExists = await prisma.clinicInfo.findFirst();
+  if (!clinicExists) {
+    await prisma.clinicInfo.create({
+      data: {
+        phones: ['+20 10 123 4567', '+20 2 345 6789'],
+        locations: [{ name: 'Maadi Branch', address: '12 Road 9, Maadi, Cairo' }],
+        googleMapsUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3456.123456789!2d31.234567!3d30.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM0Y0!5e0!3m2!1sen!2seg!4v1234567890',
+        workingHours: { sat: '9AM-8PM', sun: '9AM-8PM', mon: '9AM-8PM' },
+      },
+    });
+  }
+
+  // Sample doctor
+  const doctorExists = await prisma.doctor.findFirst();
+  if (!doctorExists) {
+    await prisma.doctor.create({
+      data: {
+        name: 'Dr. Ahmed Hassan',
+        specialization: 'Small Animal Surgery',
+        bio: '15 years experience in veterinary surgery. Passionate about pet wellness.',
+        experience: 15,
+        photo: 'https://picsum.photos/id/1015/400/400',
+        location: 'Maadi, Cairo',
+        phone: '+20 10 987 6543',
+        certifications: ['DVM Cairo University', 'Board Certified Surgeon'],
+      },
+    });
+  }
+}
+
+main()
+  .catch((e) => console.error(e))
+  .finally(() => prisma.$disconnect());

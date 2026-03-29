@@ -1,0 +1,30 @@
+# Vetology - Veterinary Clinic Platform
+
+Production-ready full-stack veterinary clinic platform.
+
+**Tech Stack**
+- Next.js 14 (App Router) + TypeScript + Tailwind CSS
+- Prisma + PostgreSQL
+- JWT + bcrypt auth
+- i18n (English + Arabic)
+- Responsive minimal professional UI
+
+**Quick Start**
+1. `git clone` this repo into `vetology/`
+2. `cp .env.example .env` and update DATABASE_URL + JWT_SECRET
+3. `npm install`
+4. `npx prisma generate`
+5. `npx prisma db push`
+6. `npm run seed` (creates admin account)
+7. `npm run dev`
+
+Admin: vetology.se@gmail.com / vetologyse2089  
+Live at: http://localhost:3000
+
+**Deployment**
+- Vercel (frontend + API routes)
+- Neon / Supabase / Railway for PostgreSQL
+- Set all env vars in Vercel dashboard
+- Run `npm run build` → deploy
+
+All pages, API routes, auth, multilingual support, admin dashboard, chat, booking, etc. are fully implemented.

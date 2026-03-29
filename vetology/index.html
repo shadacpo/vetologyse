@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vetology | Veterinary Clinic Cairo</title>
+  <meta name="description" content="Professional veterinary care for your pets in Cairo. Book appointments with expert veterinarians.">
+  
+  <!-- Tailwind CSS CDN (for standalone use) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Inter + Cairo -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #2E7D6F;
+      --accent: #4CAF93;
+      --secondary: #F4F7F6;
+    }
+    
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    
+    .arabic {
+      font-family: 'Cairo', sans-serif;
+    }
+    
+    .hero-bg {
+      background: linear-gradient(rgba(46, 125, 111, 0.85), rgba(46, 125, 111, 0.9)), 
+                  url('https://picsum.photos/id/1015/2000/1200') center/cover no-repeat;
+    }
+    
+    .tail-container {
+      max-width: 1280px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  </style>
+</head>
+<body class="bg-[#F4F7F6] text-[#2F2F2F]">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-sm border-b sticky top-0 z-50">
+    <div class="tail-container py-5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-[#2E7D6F] rounded-2xl flex items-center justify-center text-white font-bold text-2xl">V</div>
+        <span class="text-3xl font-semibold text-[#2E7D6F]">Vetology</span>
+      </div>
+
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="#" class="hover:text-[#2E7D6F] transition">Home</a>
+        <a href="#" class="hover:text-[#2E7D6F] transition">Doctors</a>
+        <a href="#" class="hover:text-[#2E7D6F] transition">Appointments</a>
+        <a href="#" class="hover:text-[#2E7D6F] transition">My Pets</a>
+        <a href="#" class="hover:text-[#2E7D6F] transition">Contact</a>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <!-- Language Toggle -->
+        <button onclick="toggleLanguage()" id="lang-btn"
+          class="px-5 py-2 text-sm font-medium border border-[#2E7D6F] text-[#2E7D6F] rounded-full hover:bg-[#2E7D6F] hover:text-white transition">
+          عربي
+        </button>
+        
+        <a href="#" 
+          class="bg-[#2E7D6F] text-white px-6 py-2.5 rounded-2xl font-medium hover:bg-[#4CAF93] transition">
+          Book Appointment
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-bg text-white py-28">
+    <div class="tail-container text-center">
+      <h1 id="hero-title" class="text-6xl md:text-7xl font-bold leading-tight mb-6">
+        Welcome to Vetology
+      </h1>
+      <p id="hero-subtitle" class="text-xl md:text-2xl max-w-2xl mx-auto mb-10 opacity-95">
+        Expert veterinary care for your beloved pets in Cairo
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#" 
+          class="bg-white text-[#2E7D6F] px-10 py-4 rounded-3xl font-semibold text-lg hover:shadow-2xl transition inline-block">
+          Browse Our Doctors
+        </a>
+        <a href="#" 
+          class="border-2 border-white text-white px-10 py-4 rounded-3xl font-semibold text-lg hover:bg-white hover:text-[#2E7D6F] transition inline-block">
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Info -->
+  <div class="bg-white py-12 shadow">
+    <div class="tail-container grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+      <div>
+        <div class="text-[#2E7D6F] mb-3">📍</div>
+        <h3 class="font-semibold text-lg">Maadi, Cairo</h3>
+        <p class="text-sm text-gray-600">12 Road 9, Maadi</p>
+      </div>
+      <div>
+        <div class="text-[#2E7D6F] mb-3">📞</div>
+        <h3 class="font-semibold text-lg">Call Us</h3>
+        <p class="text-sm text-gray-600">+20 10 123 4567<br>+20 2 345 6789</p>
+      </div>
+      <div>
+        <div class="text-[#2E7D6F] mb-3">🕒</div>
+        <h3 class="font-semibold text-lg">Working Hours</h3>
+        <p class="text-sm text-gray-600">Sat - Sun: 9:00 AM - 8:00 PM</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Featured Doctors -->
+  <section class="py-20 bg-white">
+    <div class="tail-container">
+      <h2 id="featured-title" class="text-4xl font-semibold text-center mb-12">Our Expert Veterinarians</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Doctor 1 -->
+        <div class="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow hover:shadow-xl transition">
+          <img src="https://picsum.photos/id/1015/600/400" alt="Dr. Ahmed Hassan" class="w-full h-64 object-cover">
+          <div class="p-6">
+            <h3 class="font-semibold text-xl">Dr. Ahmed Hassan</h3>
+            <p class="text-[#4CAF93]">Small Animal Surgery</p>
+            <div class="flex items-center gap-1 mt-4 text-yellow-400">
+              ★★★★☆ <span class="text-gray-500 text-sm ml-2">(48 reviews)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doctor 2 -->
+        <div class="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow hover:shadow-xl transition">
+          <img src="https://picsum.photos/id/64/600/400" alt="Dr. Sara Khaled" class="w-full h-64 object-cover">
+          <div class="p-6">
+            <h3 class="font-semibold text-xl">Dr. Sara Khaled</h3>
+            <p class="text-[#4CAF93]">Internal Medicine</p>
+            <div class="flex items-center gap-1 mt-4 text-yellow-400">
+              ★★★★★ <span class="text-gray-500 text-sm ml-2">(67 reviews)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doctor 3 -->
+        <div class="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow hover:shadow-xl transition">
+          <img src="https://picsum.photos/id/201/600/400" alt="Dr. Mohamed Ali" class="w-full h-64 object-cover">
+          <div class="p-6">
+            <h3 class="font-semibold text-xl">Dr. Mohamed Ali</h3>
+            <p class="text-[#4CAF93]">Dermatology & Allergy</p>
+            <div class="flex items-center gap-1 mt-4 text-yellow-400">
+              ★★★★☆ <span class="text-gray-500 text-sm ml-2">(39 reviews)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-[#2E7D6F] text-white py-20">
+    <div class="tail-container text-center">
+      <h2 id="cta-title" class="text-4xl font-semibold mb-6">Ready to give your pet the best care?</h2>
+      <p id="cta-subtitle" class="text-xl max-w-md mx-auto mb-10">Book an appointment with our experienced veterinarians today.</p>
+      <a href="#" 
+        class="inline-block bg-white text-[#2E7D6F] px-12 py-5 rounded-3xl font-semibold text-lg hover:bg-[#F4F7F6] transition">
+        Book Appointment Now
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#2F2F2F] text-gray-300 py-16">
+    <div class="tail-container">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div>
+          <div class="flex items-center gap-3 text-white mb-6">
+            <div class="w-9 h-9 bg-[#2E7D6F] rounded-2xl flex items-center justify-center text-2xl font-bold">V</div>
+            <span class="text-2xl font-semibold">Vetology</span>
+          </div>
+          <p class="text-sm">Professional veterinary clinic dedicated to the health and happiness of your pets.</p>
+        </div>
+        
+        <div>
+          <h4 class="font-medium text-white mb-4">Quick Links</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="hover:text-white">Find a Doctor</a></li>
+            <li><a href="#" class="hover:text-white">Book Appointment</a></li>
+            <li><a href="#" class="hover:text-white">My Pets</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-medium text-white mb-4">Contact</h4>
+          <p class="text-sm">+20 10 123 4567<br>info@vetology.eg</p>
+          <p class="text-sm mt-3">Maadi, Cairo, Egypt</p>
+        </div>
+        
+        <div>
+          <h4 class="font-medium text-white mb-4">Follow Us</h4>
+          <p class="text-sm">Facebook • Instagram • WhatsApp</p>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-700 mt-12 pt-8 text-center text-xs">
+        © 2026 Vetology Veterinary Clinic. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let isArabic = false;
+
+    function toggleLanguage() {
+      isArabic = !isArabic;
+      const btn = document.getElementById('lang-btn');
+      
+      if (isArabic) {
+        document.documentElement.setAttribute('lang', 'ar');
+        document.documentElement.setAttribute('dir', 'rtl');
+        btn.textContent = 'EN';
+        
+        // Update texts to Arabic
+        document.getElementById('hero-title').textContent = 'مرحباً بكم في فيتولوجي';
+        document.getElementById('hero-subtitle').textContent = 'رعاية بيطرية متخصصة لحيواناتكم الأليفة في القاهرة';
+        document.getElementById('featured-title').textContent = 'أطباؤنا المتخصصون';
+        document.getElementById('cta-title').textContent = 'هل أنت مستعد لتقديم أفضل رعاية لحيوانك الأليف؟';
+        document.getElementById('cta-subtitle').textContent = 'احجز موعدًا مع أطبائنا ذوي الخبرة اليوم';
+      } else {
+        document.documentElement.setAttribute('lang', 'en');
+        document.documentElement.setAttribute('dir', 'ltr');
+        btn.textContent = 'عربي';
+        
+        // Restore English texts
+        document.getElementById('hero-title').textContent = 'Welcome to Vetology';
+        document.getElementById('hero-subtitle').textContent = 'Expert veterinary care for your beloved pets in Cairo';
+        document.getElementById('featured-title').textContent = 'Our Expert Veterinarians';
+        document.getElementById('cta-title').textContent = 'Ready to give your pet the best care?';
+        document.getElementById('cta-subtitle').textContent = 'Book an appointment with our experienced veterinarians today.';
+      }
+    }
+
+    // Tailwind script already loaded via CDN
+  </script>
+</body>
+</html>

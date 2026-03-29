@@ -1,0 +1,70 @@
+import { prisma } from '@/lib/prisma';
+import DoctorCard from '@/components/DoctorCard';
+import { Calendar, MapPin, Phone } from 'lucide-react';
+
+export default async function Home() {
+  const doctors = await prisma.doctor.findMany({ take: 3 });
+  const clinic = await prisma.clinicInfo.findFirst();
+
+  return (
+    <div>
+      {/* Hero */}
+      <div className="bg-gradient-to-br from-primary to-accent text-white py-24">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <h1 className="text-6xl font-bold mb-6">Welcome to Vetology</h1>
+          <p className="text-2xl max-w-2xl mx-auto">Expert care for your beloved pets. Book now with the best veterinarians in Cairo.</p>
+          <a href="/doctors" className="mt-10 inline-block bg-white text-primary px-10 py-4 rounded-2xl font-semibold text-lg hover:shadow-xl transition">Browse Doctors</a>
+        </div>
+      </div>
+
+      {/* Clinic Info */}
+      <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="flex gap-4">
+          <Phone className="text-primary mt-1" />
+          <div>
+            <h3 className="font-semibold">Call Us</h3>
+            <p className="text-sm">{clinic?.phones.join(' • ')}</p>
+          </div>
+        </div>
+        <div className="flex gap-4">
+          <MapPin className="text-primary mt-1" />
+          <div>
+            <h3 className="font-semibold">Visit Us</h3>
+            <p className="text-sm">Maadi, Cairo</p>
+          </div>
+        </div>
+        <div className="flex gap-4">
+          <Calendar className="text-primary mt-1" />
+          <div>
+            <h3 className="font-semibold">Working Hours</h3>
+            <p className="text-sm">Sat-Sun 9AM-8PM</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Featured Doctors */}
+      <div className="max-w-7xl mx-auto px-6 py-16">
+        <h2 className="text-3xl font-semibold mb-8">Our Expert Doctors</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {doctors.map((doc) => (
+            <DoctorCard key={doc.id} doctor={doc} />
+          ))}
+        </div>
+      </div>
+
+      {/* Google Maps embed placeholder */}
+      <div className="bg-secondary py-12">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-3xl font-semibold mb-6">Our Location</h2>
+          <iframe
+            src={clinic?.googleMapsUrl || 'https://www.google.com/maps/embed?pb=...'}
+            width="100%"
+            height="400"
+            allowFullScreen
+            className="rounded-3xl shadow-xl"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}

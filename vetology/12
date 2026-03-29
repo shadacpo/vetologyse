@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-inter: "Inter", system-ui, sans-serif;
+  }
+  .arabic {
+    font-family: "Cairo", sans-serif;
+  }
+}
+
+body {
+  @apply bg-secondary text-text;
+}

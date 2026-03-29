@@ -1,0 +1,28 @@
+export const translations = {
+  en: {
+    welcome: "Welcome to Vetology",
+    home: "Home",
+    doctors: "Doctors",
+    appointments: "Appointments",
+    pets: "My Pets",
+    admin: "Admin",
+    login: "Login",
+    logout: "Logout",
+    bookNow: "Book Appointment",
+    language: "Language",
+  },
+  ar: {
+    welcome: "مرحباً بكم في فيتولوجي",
+    home: "الرئيسية",
+    doctors: "الأطباء",
+    appointments: "المواعيد",
+    pets: "حيواناتي الأليفة",
+    admin: "لوحة الإدارة",
+    login: "تسجيل الدخول",
+    logout: "تسجيل الخروج",
+    bookNow: "حجز موعد",
+    language: "اللغة",
+  },
+} as const;
+
+export type Locale = keyof typeof translations;
